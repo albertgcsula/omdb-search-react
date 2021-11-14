@@ -1,11 +1,11 @@
 const API_KEY = 'e889c907';
 const OMDB_API_URL = `https://www.omdbapi.com/`;
 
-export const getSearchResults = async (query, type) => {
+export const getSearchResults = async (query, type, page) => {
   const queryEncoded = query.trim().replace(" ", "+");
 
   return new Promise((resolve) => {
-    fetch(`${OMDB_API_URL}?apikey=${API_KEY}&s=${queryEncoded}&type=${type}&page=1`, {
+    fetch(`${OMDB_API_URL}?apikey=${API_KEY}&s=${queryEncoded}&type=${type}&page=${page}`, {
       method: "GET",
     }).then((res) => {
       resolve(res.json());

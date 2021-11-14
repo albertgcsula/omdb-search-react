@@ -1,6 +1,8 @@
 const initialState = {
   title: '',
   search_type: '',
+  page: 1,
+  isLoading: false,
   results: [],
 };
 
@@ -33,8 +35,14 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         title: action.title,
-        results: action.results,
+        page: action.page,
+        results: action.page === 1 ? action.results : [...state.results, ...action.results],
         errorMessage: action.errorMessage
+      };
+    case 'LOAD_MORE_REQUESTED':
+      return {
+        ...state,
+        page: action.page
       };
     default:
       return state

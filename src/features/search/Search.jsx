@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchCleared, searchTypeSet, titleSet } from '../../actions/index';
+import { loadMoreRequested, searchCleared, searchTypeSet, titleSet } from '../../actions/index';
 import { fetchResults } from '../../actions/getResults';
-import { selectResults } from '../../selectors';
+import { selectResults, selectTitle } from '../../selectors';
 import ResultsList from './ResultsList';
 
 export default function Search () {
@@ -13,6 +13,7 @@ export default function Search () {
   const [searchType, setSearchType] = useState('');
 
   const errorMessage = useSelector(state => state.errorMessage);
+  const page = useSelector(state => state.page);
   const results = useSelector(state => selectResults(state));
 
   const clearSearch = () => {
@@ -23,9 +24,15 @@ export default function Search () {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     dispatch(titleSet(titleInput));
     dispatch(searchTypeSet(searchType));
-    dispatch(fetchResults(titleInput, searchType));
+    dispatch(fetchResults(titleInput, searchType, 1));
+  };
+
+  const loadMore = () => {
+    dispatch(loadMoreRequested(page + 1));
+    dispatch(fetchResults(titleInput, searchType, page + 1));
   };
  
   return (
@@ -77,9 +84,23 @@ export default function Search () {
             <div className="text-warning">{errorMessage}</div>
           )}
           {results.length > 0 && (
-            <ResultsList 
-              results={results}
-            />
+            <>
+              <ResultsList 
+                results={results}
+              />
+              <div className="load-more mt-2">
+                <Button
+                  className="me-2"
+                  color="secondary" 
+                  size="sm" 
+                  onClick={clearSearch}>
+                  Clear
+                </Button>
+                <Button color="primary" size="sm" onClick={loadMore}>
+                  Load More
+                </Button>
+              </div>
+            </>
           )}
         </div>
       </div>

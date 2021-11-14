@@ -8,10 +8,11 @@ export const searchTypeSet = searchType => ({
   searchType
 });
 
-export const resultsReceived = (title, results) => ({
+export const resultsReceived = (title, results, page) => ({
   type: 'RESULTS_RECEIVED',
   results,
   title,
+  page,
   errorMessage: ''
 });
 
@@ -27,4 +28,9 @@ export const searchFailed = (errorMessage) => ({
   results: [],
   title: '',
   errorMessage: errorMessage
+});
+
+export const loadMoreRequested = page => ({
+  type: 'LOAD_MORE_REQUESTED',
+  page
 });
