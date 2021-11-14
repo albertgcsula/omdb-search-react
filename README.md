@@ -1,6 +1,8 @@
 # OMDb Search React Redux App
 
 This is a React Redux App that uses the [OMDb Api](http://www.omdbapi.com/) to search movies, series and episodes.
+You can view the project [here](https://albertgcsula.github.io/omdb-search-react/).
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
