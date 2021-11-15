@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/omdb-search-react/static/css/main.081a8df6.chunk.css",
-    "main.js": "/omdb-search-react/static/js/main.acd9acc2.chunk.js",
-    "main.js.map": "/omdb-search-react/static/js/main.acd9acc2.chunk.js.map",
+    "main.js": "/omdb-search-react/static/js/main.90beb945.chunk.js",
+    "main.js.map": "/omdb-search-react/static/js/main.90beb945.chunk.js.map",
     "runtime-main.js": "/omdb-search-react/static/js/runtime-main.073fabd9.js",
     "runtime-main.js.map": "/omdb-search-react/static/js/runtime-main.073fabd9.js.map",
     "static/css/2.383c0125.chunk.css": "/omdb-search-react/static/css/2.383c0125.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.383c0125.chunk.css",
     "static/js/2.4d3cd377.chunk.js",
     "static/css/main.081a8df6.chunk.css",
-    "static/js/main.acd9acc2.chunk.js"
+    "static/js/main.90beb945.chunk.js"
   ]
 }
