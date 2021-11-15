@@ -35,7 +35,7 @@ export default function Search () {
 
   const loadMore = () => {
     dispatch(loadMoreRequested(page + 1));
-    dispatch(fetchResults(searchTitle, searchType, page + 1));
+    dispatch(fetchResults(searchTitle, searchYear, searchType, page + 1));
   };
  
   return (
