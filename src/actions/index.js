@@ -8,18 +8,27 @@ export const searchTypeSet = searchType => ({
   searchType
 });
 
-export const resultsReceived = (title, results, page) => ({
+export const searchYearSet = searchYear => ({
+  type: 'SEARCH_YEAR_SET',
+  searchYear
+});
+
+export const resultsReceived = (title, searchYear, searchType, results, page) => ({
   type: 'RESULTS_RECEIVED',
-  results,
   title,
+  search_year: searchYear, 
+  search_type: searchType,
+  results,
   page,
   errorMessage: ''
 });
 
 export const searchCleared = () => ({
   type: 'SEARCH_CLEARED',
-  results: [],
   title: '',
+  search_year: '',
+  search_type: '',
+  results: [],
   errorMessage: ''
 });
 

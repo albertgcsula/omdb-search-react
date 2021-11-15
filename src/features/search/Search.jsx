@@ -1,38 +1,41 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadMoreRequested, searchCleared, searchTypeSet, titleSet } from '../../actions/index';
+import { loadMoreRequested, searchCleared, searchTypeSet, searchYearSet, titleSet } from '../../actions/index';
 import { fetchResults } from '../../actions/getResults';
-import { selectResults, selectTitle } from '../../selectors';
+import { selectResults } from '../../selectors';
 import ResultsList from './ResultsList';
 
 export default function Search () {
   const dispatch = useDispatch();
 
-  const [titleInput, setTitleInput] = useState('');
+  const [searchTitle, setSearchTitle] = useState('');
   const [searchType, setSearchType] = useState('');
+  const [searchYear, setSearchYear] = useState('');
 
   const errorMessage = useSelector(state => state.errorMessage);
   const page = useSelector(state => state.page);
   const results = useSelector(state => selectResults(state));
 
   const clearSearch = () => {
-    setTitleInput('');
+    setSearchTitle('');
     setSearchType('');
+    setSearchYear('');
     dispatch(searchCleared());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(titleSet(titleInput));
+    dispatch(titleSet(searchTitle));
+    dispatch(searchYearSet(searchYear));
     dispatch(searchTypeSet(searchType));
-    dispatch(fetchResults(titleInput, searchType, 1));
+    dispatch(fetchResults(searchTitle, searchYear, searchType, 1));
   };
 
   const loadMore = () => {
     dispatch(loadMoreRequested(page + 1));
-    dispatch(fetchResults(titleInput, searchType, page + 1));
+    dispatch(fetchResults(searchTitle, searchType, page + 1));
   };
  
   return (
@@ -40,13 +43,23 @@ export default function Search () {
       <Form onSubmit={handleSubmit}>
         <FormGroup className="row">
           <div className="col-md-6">
-            <Label for="movieTitle">Search by title</Label>
+            <Label for="title_input">Search by title</Label>
             <Input 
-              name="movieTitle"
+              name="title_input"
               placeholder="title"
               type="text"
-              value={titleInput}
-              onChange={(e) => setTitleInput(e.target.value)}
+              value={searchTitle}
+              onChange={(e) => setSearchTitle(e.target.value)}
+            />
+          </div>
+          <div className="col-auto">
+          <Label for="year_input">Year</Label>
+            <Input 
+              name="year_input"
+              placeholder="year"
+              type="text"
+              value={searchYear}
+              onChange={(e) => setSearchYear(e.target.value)}
             />
           </div>
           <div className="col-auto">
@@ -74,12 +87,18 @@ export default function Search () {
             onClick={clearSearch}>
               Clear
           </Button>
-          <Button color="primary" size="sm" type="submit">Search</Button>
+          <Button 
+            color="primary"
+            disabled={!searchTitle && true }
+            size="sm"
+            type="submit">
+              Search
+          </Button>
         </FormGroup>
       </Form>
       <div className="row mt-3">
-        <div className="col-md-8">
-          <p>Results for {titleInput}: </p>
+        <div className="col-md-10">
+          <p>Results for {searchTitle}: </p>
           {errorMessage && (
             <div className="text-warning">{errorMessage}</div>
           )}

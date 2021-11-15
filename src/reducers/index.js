@@ -1,6 +1,7 @@
 const initialState = {
   title: '',
   search_type: '',
+  search_year: '',
   page: 1,
   isLoading: false,
   results: [],
@@ -17,6 +18,11 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         search_type: action.searchType
+      };
+    case 'SEARCH_YEAR_SET':
+      return {
+        ...state,
+        search_year: action.searchYear
       };
     case 'SEARCH_CLEARED':
       return {
@@ -35,6 +41,8 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         title: action.title,
+        search_year: action.search_year,
+        search_type: action.search_type,
         page: action.page,
         results: action.page === 1 ? action.results : [...state.results, ...action.results],
         errorMessage: action.errorMessage
